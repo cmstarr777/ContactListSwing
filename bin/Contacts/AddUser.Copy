@@ -1,0 +1,155 @@
+package Contacts;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Container;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+public class AddUser extends JFrame {
+	
+    JTextField textField = new JTextField("This is some text", 20);
+    JLabel firstnameLabel = new JLabel("firstname");
+    JTextField firstname = new JTextField(20);
+    JLabel lastnameLabel = new JLabel("Lastname");
+    JTextField lastname = new JTextField(20);
+    JLabel homeAddressLabel = new JLabel("homeAddress");
+    JTextField homeAddress = new JTextField(20);
+    JLabel phoneNumberLabel = new JLabel("phoneNumber");
+    JTextField phoneNumber = new JTextField(20);
+    JButton registerButton = new JButton("Register!");
+    
+    JButton button = new JButton("OK");
+  
+   JTextArea textArea = new JTextArea();
+    
+
+    
+    User user = new User();
+
+public AddUser() {
+        //super("Demo program for JTextField");
+        setLayout(null);
+
+
+    /*
+    Container contentPane = getContentPane( );
+    contentPane.setLayout(new BorderLayout( ));
+    */
+    
+    JPanel textPanel = new JPanel( );
+    textPanel.setBackground(Color.BLUE);
+    textPanel.setLayout(new FlowLayout( ));
+    /*
+    JScrollPane jScrollPane1 = new JScrollPane(textArea);
+    jScrollPane1 = new JScrollPane(textArea);
+    textPanel.add(jScrollPane1); 
+    */
+    //firstname = new JTextField("", 30);
+    //firstname.setBackground(Color.WHITE);
+    //textPanel.add(firstname);
+    //contentPane.add(textPanel, BorderLayout.CENTER);
+    /*
+    textArea.setColumns(20);
+    textArea.setLineWrap(true);
+    textArea.setRows(5);
+    textArea.setWrapStyleWord(true);
+    textArea.setEditable(true);
+        
+    JPanel buttonPanel = new JPanel( );
+    
+    buttonPanel.setBackground(Color.GRAY);
+    buttonPanel.setLayout(new FlowLayout( ));
+    registerButton.setBounds(100, 160, 100, 25);
+    buttonPanel.add(registerButton);
+    contentPane.add(buttonPanel, BorderLayout.SOUTH);
+    
+    */
+    
+    firstnameLabel.setBounds(10, 10, 80, 25);
+    firstname.setBounds(100, 10, 160, 25);
+    lastnameLabel.setBounds(10, 40, 80, 25);
+    lastname.setBounds(100, 40, 160, 25);
+    homeAddressLabel.setBounds(10, 70, 80, 25);
+    homeAddress.setBounds(100, 70, 160, 25);
+    phoneNumber.setBounds(100, 100, 160, 25);
+    phoneNumberLabel.setBounds(10, 100, 80, 25);
+    
+    //adds key event listener
+    textField.addKeyListener(new KeyAdapter() {
+        public void keyReleased(KeyEvent event) {
+            String content = firstname.getText();
+            if (!content.equals("")) {
+                registerButton.setEnabled(true);
+            } else {
+                registerButton.setEnabled(false);
+            }
+        }
+    });
+
+    // adds action listener for the button
+    registerButton.addActionListener(new ActionListener() {
+        //Logic for saving contact
+        @Override
+        public void actionPerformed(ActionEvent event) {
+
+            user.setFirstname(firstname.getText());
+            user.setLastname(lastname.getText());
+            user.sethomeAddress(homeAddress.getText());
+            user.setphoneNumber(phoneNumber.getText());
+            //user.setPassword(password.getText());
+            //UserDao dao = new UserDao();
+           // String status = dao.save(user);
+            String status = "success";
+            String msg = "";
+            if (status.equals("success")) {
+                msg = "Successfully Saved Contact";
+                int confirmed = JOptionPane.showConfirmDialog(null,
+                        msg + " Do you want to add other user?", "Exit Program Message Box",
+                        JOptionPane.YES_NO_OPTION);
+                if (confirmed == JOptionPane.NO_OPTION) {
+                    dispose();
+                    //new SimpleReport();
+                } else {
+                    firstname.setText("");
+                    lastname.setText("");
+                    homeAddress.setText("");
+                    phoneNumber.setText("");
+                }
+            } else {
+                msg = "Contact Saving Failed. Try Again Later";
+                JOptionPane.showMessageDialog(AddUser.this, msg);
+            }
+        }
+    });
+    add(firstnameLabel);
+    add(firstname);
+    add(lastnameLabel);
+    add(lastname);
+    add(homeAddressLabel);
+    add(homeAddress);
+    add(phoneNumberLabel);
+    add(phoneNumber);
+    add(registerButton);
+    setSize(350, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+    setVisible(true);
+}
+}
